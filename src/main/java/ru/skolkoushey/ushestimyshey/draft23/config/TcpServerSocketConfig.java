@@ -13,27 +13,27 @@ import org.springframework.messaging.MessageChannel;
 @EnableIntegration
 public class TcpServerSocketConfig {
 
-    private int port = 8090;
+	private int port = 8090;
 
-    @Bean
-    public AbstractServerConnectionFactory serverConnectionFactory() {
-        TcpNioServerConnectionFactory serverConnectionFactory = new TcpNioServerConnectionFactory(port);
-        serverConnectionFactory.setUsingDirectBuffers(true);
-        return serverConnectionFactory;
-    }
+	@Bean
+	public AbstractServerConnectionFactory serverConnectionFactory() {
+		TcpNioServerConnectionFactory serverConnectionFactory = new TcpNioServerConnectionFactory(port);
+		serverConnectionFactory.setUsingDirectBuffers(true);
+		return serverConnectionFactory;
+	}
 
-    @Bean
-    public MessageChannel inboundChannel() {
-        return new DirectChannel();
-    }
+	@Bean
+	public MessageChannel inboundChannel() {
+		return new DirectChannel();
+	}
 
-    @Bean
-    public TcpInboundGateway inboundGateway(AbstractServerConnectionFactory serverConnectionFactory,
-                                            MessageChannel inboundChannel) {
-        TcpInboundGateway tcpInboundGateway = new TcpInboundGateway();
-        tcpInboundGateway.setConnectionFactory(serverConnectionFactory);
-        tcpInboundGateway.setRequestChannel(inboundChannel);
-        return tcpInboundGateway;
-    }
+	@Bean
+	public TcpInboundGateway inboundGateway(AbstractServerConnectionFactory serverConnectionFactory,
+			MessageChannel inboundChannel) {
+		TcpInboundGateway tcpInboundGateway = new TcpInboundGateway();
+		tcpInboundGateway.setConnectionFactory(serverConnectionFactory);
+		tcpInboundGateway.setRequestChannel(inboundChannel);
+		return tcpInboundGateway;
+	}
 
 }
